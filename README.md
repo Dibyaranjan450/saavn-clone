@@ -1,6 +1,6 @@
 # Saavn-Clone
 
-![Screenshot Img](./img/screenshot-img.png)
+![Screenshot Img](./Screenshot (4).png)
 
 ## Usage
 
