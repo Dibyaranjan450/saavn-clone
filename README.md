@@ -7,15 +7,15 @@
 Clone it :
 
 ```
-$ git clone https://github.com/Dibyaranjan450/Martin-GarriX.git
+$ git clone https://github.com/Dibyaranjan450/saavn-clone.git
 ```
 
 Visit the page at : 
 
 ```
-https://dibyaranjan450.github.io/Martin-GarriX/
+https://dibyaranjan450.github.io/saavn-clone/
 ```
 
 ## Contributor
 
-- Creator of +X page @Dibyaranjan450
+- Creator of saavn-clone @Dibyaranjan450
