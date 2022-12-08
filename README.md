@@ -1,4 +1,4 @@
-# saavn-clone
+# Saavn-Clone
 
 ![Screenshot Img](./img/screenshot-img.png)
 
