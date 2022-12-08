@@ -16,7 +16,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import './Swiper.css';
+// import './Swiper.css';
 
 import audio0 from './Audio/Hozier and Bear McCreary - Blood Upon the Snow.mp3';
 import audio1 from './Audio/Rihanna - Born Again.mp3';
