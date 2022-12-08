@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './index.css';
 import Saavn from './Saavn';
-import Swiper from './Swiper';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +12,6 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={ <Saavn /> } />
-        <Route path='/swipe_test' element={ <Swiper /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
