@@ -24,76 +24,12 @@ import audio2 from './Audio/Taylor Swift - Anti-Hero.mp3';
 import audio3 from './Audio/Louis Tomlinson - Silver Tongues.mp3';
 
 
-const info = [
-  {
-    image: "https://c.saavncdn.com/485/God-of-War-Ragnar-k-Original-Soundtrack-Unknown-2022-20221024114609-500x500.jpg",
-    audio: audio0, title: "Blood Upon the Snow", singer: "Hozier, Bear McCreary"
-  },
-  {
-    image: "https://snoidcdnems02.cdnsrv.jio.com/c.saavncdn.com/847/Black-Panther-Wakanda-Forever-Music-From-and-Inspired-By-English-2022-20221110054336-500x500.jpg",
-    audio: audio1, title: "Born Again", singer: "Rihanna" 
-  },
-  {
-    image: "https://snoidcdnems07.cdnsrv.jio.com/c.saavncdn.com/793/Midnights-English-2022-20221021103611-500x500.jpg",
-    audio: audio2, title: "Anti-Hero", singer: "Taylor Swift" 
-  },
-  {
-    image: "https://snoidcdnems06.cdnsrv.jio.com/c.saavncdn.com/655/Faith-In-The-Future-Deluxe-English-2022-20221108162905-500x500.jpg",
-    audio: audio3, title: "Silver Tongues", singer: "Louis Tomlinson"
-  },
-];
-
-
-function like_button_clicked() {
-  document.getElementById('unlike_button').style.display = 'none';
-  document.getElementById('like_button').style.display = 'block';
-}
-
-function unlike_button_clicked() {
-  document.getElementById('like_button').style.display = 'none';
-  document.getElementById('unlike_button').style.display = 'block';
-}
-
-function main_menu_button_clicked() {
-  document.getElementById('popup_option_div').style.display = "block"
-  setTimeout(()=>{
-    document.getElementById('option_content_div').classList.add('show');
-  },1)
- 
-}
-
-function cancel_button_clicked() {
-  
-  document.getElementById('option_content_div').classList.remove('show');
-  setTimeout(()=>{
-    document.getElementById('popup_option_div').style.display = "none"
-  },1)
-}
-
-
-let autoplayButton = 'on';
-
-function autoplayToggle() {
-  if(autoplayButton === 'on'){
-    document.getElementById("autoplay_button_div").style.backgroundColor = '#ffff';
-    document.getElementById("autoplay_botton").style.backgroundColor = '#e9e9e9';
-    document.getElementById("autoplay_button_div").style.justifyContent = 'left';
-    document.getElementById("autoplay_sec").style.display = 'none';
-    autoplayButton = 'off';
-  }
-  else if(autoplayButton === 'off'){
-    document.getElementById("autoplay_button_div").style.backgroundColor = '#2bc5b4';
-    document.getElementById("autoplay_botton").style.backgroundColor = '#ffff';
-    document.getElementById("autoplay_button_div").style.justifyContent = 'right';
-    document.getElementById("autoplay_sec").style.display = 'block';
-    autoplayButton = 'on';
-  }
-}
 
 
 
 function Saavn() {
 
+  const [like, setLike] = useState(false);
   const [playing,setPlaying] = useState(false);
   const audio = useRef();
   const loadedBar = useRef(); 
@@ -107,8 +43,37 @@ function Saavn() {
   const optionImg = useRef();
   const optionSongTitle = useRef();
   const optionSongInfo = useRef();
+  const popupOption = useRef();
+  const optionContent = useRef();
+  const autoplayButtonDiv = useRef();
+  const autoplayButton = useRef();
+  const autoplaySec = useRef();
+  const moreFrom = useRef();
+  const secondArtistMoreFrom = useRef();
 
   let currentAudio = 0;
+  let autoplay = true;
+  const info = [
+    {
+      image: "https://c.saavncdn.com/485/God-of-War-Ragnar-k-Original-Soundtrack-Unknown-2022-20221024114609-500x500.jpg",
+      audio: audio0, title: "Blood Upon the Snow", singer: "Hozier, Bear McCreary"
+    },
+    {
+      image: "https://snoidcdnems02.cdnsrv.jio.com/c.saavncdn.com/847/Black-Panther-Wakanda-Forever-Music-From-and-Inspired-By-English-2022-20221110054336-500x500.jpg",
+      audio: audio1, title: "Born Again", singer: "Rihanna" 
+    },
+    {
+      image: "https://snoidcdnems07.cdnsrv.jio.com/c.saavncdn.com/793/Midnights-English-2022-20221021103611-500x500.jpg",
+      audio: audio2, title: "Anti-Hero", singer: "Taylor Swift" 
+    },
+    {
+      image: "https://snoidcdnems06.cdnsrv.jio.com/c.saavncdn.com/655/Faith-In-The-Future-Deluxe-English-2022-20221108162905-500x500.jpg",
+      audio: audio3, title: "Silver Tongues", singer: "Louis Tomlinson"
+    },
+  ];
+
+  
+
 
   const playPause = () => {
     if(playing){
@@ -145,6 +110,7 @@ function Saavn() {
       optionImg.current.src = info[currentAudio].image;
       optionSongTitle.current.innerHTML = info[currentAudio].title;
       optionSongInfo.current.innerHTML = info[currentAudio].singer;
+      moreFrom.current.innerHTML = info[currentAudio].singer;
     } else {
       currentAudio++;
       audio.current.src = info[currentAudio].audio;
@@ -159,8 +125,10 @@ function Saavn() {
       optionImg.current.src = info[currentAudio].image;
       optionSongTitle.current.innerHTML = info[currentAudio].title;
       optionSongInfo.current.innerHTML = info[currentAudio].singer;
+      moreFrom.current.innerHTML = info[currentAudio].singer;
     }
     imgSwiper.current.swiper.slideNext();
+    secondArtistMoreFrom.current.style.display = 'none';
   }
 
   const skipPrevious = () => {
@@ -179,6 +147,7 @@ function Saavn() {
       optionImg.current.src = info[currentAudio].image;
       optionSongTitle.current.innerHTML = info[currentAudio].title;
       optionSongInfo.current.innerHTML = info[currentAudio].singer;
+      moreFrom.current.innerHTML = info[currentAudio].singer;
     } else {
       currentAudio--;
       audio.current.src = info[currentAudio].audio;
@@ -193,7 +162,9 @@ function Saavn() {
       optionImg.current.src = info[currentAudio].image;
       optionSongTitle.current.innerHTML = info[currentAudio].title;
       optionSongInfo.current.innerHTML = info[currentAudio].singer;
+      moreFrom.current.innerHTML = info[currentAudio].singer;
     }
+    secondArtistMoreFrom.current.style.display = 'none';
   }
   
   function suffle() {
@@ -213,6 +184,7 @@ function Saavn() {
     optionImg.current.src = info[currentAudio].image;
     optionSongTitle.current.innerHTML = info[currentAudio].title;
     optionSongInfo.current.innerHTML = info[currentAudio].singer;
+    moreFrom.current.innerHTML = info[currentAudio].singer;
   }
 
   function replay() {
@@ -224,6 +196,41 @@ function Saavn() {
       loopButton.current.style.color = '#2bc5b4';
     }
   }
+
+  function main_menu_button_clicked() {
+    popupOption.current.style.display = "block";
+    setTimeout(()=>{
+      optionContent.current.classList.add('show');
+    },1)
+
+  }
+
+  function cancel_button_clicked() {
+    optionContent.current.classList.remove('show');
+    setTimeout(()=>{
+      popupOption.current.style.display = "none";
+    },1)
+  }
+
+  function autoplayToggle() {
+    if(autoplay){
+      autoplayButtonDiv.current.style.backgroundColor = '#ffff';
+      autoplayButton.current.style.backgroundColor = '#e9e9e9';
+      autoplayButtonDiv.current.style.justifyContent = 'left';
+      autoplaySec.current.style.display = 'none';
+      autoplay = false;
+    } else {
+      autoplayButtonDiv.current.style.backgroundColor = '#2bc5b4';
+      autoplayButton.current.style.backgroundColor = '#ffff';
+      autoplayButtonDiv.current.style.justifyContent = 'right';
+      autoplaySec.current.style.display = 'block';
+      autoplay = true;
+    }
+  }
+
+
+
+
 
   return (
     <div className="App">
@@ -266,9 +273,8 @@ function Saavn() {
         </div>
 
         <div id='option_div'>
-          <IoHeartOutline onClick={like_button_clicked} id='unlike_button' size='30px' color='rgb(90, 90, 90)'/>
-          <IoHeartSharp onClick={unlike_button_clicked} id='like_button' size='30px' color='crimson'/>
-          
+          {like ? <IoHeartSharp onClick={() => setLike(!like)} id='like_button' size='30px' color='crimson'/> : <IoHeartOutline onClick={() => setLike(!like)} id='unlike_button' size='30px' color='rgb(90, 90, 90)'/>}
+
           <div id='song_info_div'>
             <p1 ref={mainSongTitle} id="song_title"> Blood Upon The Snow </p1>
             <div>
@@ -373,15 +379,15 @@ function Saavn() {
             <p1> Autoplay more like this </p1>
           </div>
         
-          <div onClick={autoplayToggle} id='autoplay_button_div'>
-            <div id='autoplay_botton'>
+          <div onClick={autoplayToggle} ref={autoplayButtonDiv} id='autoplay_button_div'>
+            <div ref={autoplayButton} id='autoplay_botton'>
 
             </div>
           </div>
 
         </div>
 
-        <div id='autoplay_sec'>
+        <div ref={autoplaySec} id='autoplay_sec'>
           <div className='playlist_card'>
 
             <img alt='playlist_image' className='play_pause_div' src='https://c.saavncdn.com/655/Faith-In-The-Future-Deluxe-English-2022-20221108162905-150x150.jpg'></img>
@@ -451,18 +457,21 @@ function Saavn() {
           <audio id="audioPlayer" controls src={info[currentAudio].audio} ref={audio}></audio>
 
           <div id='suffle_button_div'>
-            {/* <img onClick={() => {suffle()}} alt='suffle_button_img' id='suffle_button_img' src='https://cdn-icons-png.flaticon.com/512/3329/3329432.png'></img> */}
             <TbArrowsShuffle onClick={() => {suffle()}}  size='29px'/>
           </div>
         </div>
       </footer>
 
-      <div onClick={cancel_button_clicked} id='popup_option_div'>
+      <div ref={popupOption} id='popup_option_div'>
         <div id="inner_popup_option_div">
 
-          <div onClick={cancel_button_clicked} id='option_content_div'>
+        <div onClick={cancel_button_clicked} id='free_inner_space_popup_option_div'>
 
-            <div id='option_info_div'>
+        </div>
+
+          <div ref={optionContent} id='option_content_div'>
+
+            <div id='option_info_div' onClick={cancel_button_clicked}>
               <div id='option_img_div'>
                 <img alt='' id='option_img' ref={optionImg} src='https://c.saavncdn.com/485/God-of-War-Ragnar-k-Original-Soundtrack-Unknown-2022-20221024114609-500x500.jpg'></img>
               </div>
@@ -518,10 +527,10 @@ function Saavn() {
 
                 <div className='popup_lower_option_content_div'>
                   <TbMicrophone2 size='22px'/>
-                  <p1 className='lower_option_content_name'> More From Hozier </p1>
+                  <p1 className='lower_option_content_name'> More From <p1 ref={moreFrom}> Hozier </p1> </p1>
                 </div>
                 
-                <div className='popup_lower_option_content_div'>
+                <div ref={secondArtistMoreFrom} className='popup_lower_option_content_div'>
                   <TbMicrophone2 size='22px'/>
                   <p1 className='lower_option_content_name'> More From Bear McCreary </p1>
                 </div>
@@ -530,7 +539,7 @@ function Saavn() {
 
             <hr></hr>
 
-            <div id='cancel_button_div'>
+            <div onClick={cancel_button_clicked} id='cancel_button_div'>
               <p1> Cancel </p1>
             </div>
 
